@@ -1,6 +1,6 @@
 import math
 
-from Arbol import Arbol
+from Arbol import *
 
 
 def sumatoria(tiempo, arboles):
@@ -11,7 +11,7 @@ def sumatoria(tiempo, arboles):
         hojasRecogidas = 0
         while seg < tiempo:
             hojasRecogidas += math.floor((tiempo - seg) / (2 * (arbol.ubicacion + arbol.duracionSubir)))
-            seg += 2
+            seg += len(arboles)
         print("Hojas Recogidas",hojasRecogidas)
         cantTotalHojas += hojasRecogidas
         cantHormigas += math.ceil(hojasRecogidas / 2)
@@ -19,4 +19,4 @@ def sumatoria(tiempo, arboles):
     return cantHormigas, cantTotalHojas
 
 
-print(sumatoria(12, [Arbol(2, 2), Arbol(4, 2)]))
+print(sumatoria(12, [Arbol(2, 2), Arbol(4, 2),Arbol(5, 1)]))
