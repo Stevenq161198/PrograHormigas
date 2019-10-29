@@ -87,14 +87,16 @@ def mainProba():
 if __name__ == "__main__":
 
     start_time = time()
-    voraz = multiprocessing.Process(target=voraz, args=(30, [Arbol(2, 2, 1000), Arbol(4, 2, 500000), Arbol(5, 3, 250000), Arbol(8, 3, 250000)]))
     mainProba = multiprocessing.Process(target=mainProba)
+    voraz = multiprocessing.Process(target=voraz, args=(30, [Arbol(2, 2, 1000), Arbol(4, 2, 500000), Arbol(5, 3, 250000), Arbol(8, 3, 250000)]))
 
-    voraz.start()
     mainProba.start()
+    voraz.start()
 
-    voraz.join()
     mainProba.join()
+    voraz.join()
+
+    print("xd")
 
     elapsed_time = time() - start_time
     print("Elapsed time: %.10f seconds." % elapsed_time)
