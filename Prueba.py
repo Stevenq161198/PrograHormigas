@@ -32,25 +32,7 @@ def sumatoria(tiempo, arboles):
     return cantHormigas, cantTotalHojas
 
 """
-"""
-def sumatoria(tiempo, arboles):
-    cantTotalHojas = 0
-    cantHormigas = 0
-    for arbol in arboles:
-        seg = 0
-        hojasRecogidas = 0
-        while seg < math.ceil( tiempo/len(arboles)):
-            hojasRecogidas += math.floor((tiempo - seg) / (2 * (arbol.ubicacion + arbol.duracionSubir)))
-            seg += 1
-        print("Hojas Recogidas",hojasRecogidas)
-        cantTotalHojas += hojasRecogidas
-        cantHormigas += math.ceil(hojasRecogidas / 2)
-        print("Hormigas", cantHormigas)
-   - return cantHormigas, cantTotalHojas
-   """
-
-"""
-def sumatoria(tiempo, arboles):
+def voraz(tiempo, arboles):
     cantTotalHojas = 0
     cantHormigas = 0
     for arbol in arboles:
@@ -58,14 +40,24 @@ def sumatoria(tiempo, arboles):
         hojasRecogidas = 0
         while seg < tiempo:
             hojasRecogidas += math.floor((tiempo - seg) / (2 * (arbol.ubicacion + arbol.duracionSubir)))
-            seg += 1
-            tiempo -= 1
-        print("Hojas Recogidas", hojasRecogidas)
+            seg += len(arboles)
         cantTotalHojas += hojasRecogidas
         cantHormigas += math.ceil(hojasRecogidas / 2)
-        print("Hormigas", cantHormigas)
     return cantHormigas, cantTotalHojas
-"""
+
+
+def selected(tiempo, arboles):
+    cantTotalHojas = 0
+    cantHormigas = 0
+    for arbol in arboles:
+        seg = 0
+        hojasRecogidas = 0
+        while seg < tiempo:
+            hojasRecogidas += math.floor((tiempo - seg) / (2 * (arbol.ubicacion + arbol.duracionSubir)))
+            seg += len(arboles)
+        cantTotalHojas += hojasRecogidas
+        cantHormigas += math.ceil(hojasRecogidas / 2)
+    return cantHormigas, cantTotalHojas
 
 
 
@@ -117,5 +109,12 @@ def probabilista(pCantPruebas, maxHormigas, tiempo, arboles):
                     _range.probabilidad -= 0.5
     print(mejorRango)
 
-
-probabilista(10, 10000, 10000, [Arbol(2, 2, 1000), Arbol(4, 2, 500000), Arbol(5, 3, 250000), Arbol(8, 3, 250000)])
+#if __name__ == "__main__":
+print("Voraz")
+print(voraz(30, [Arbol(2, 2, 1000), Arbol(4, 2, 500000), Arbol(5, 3, 250000), Arbol(8, 3, 250000)]))
+print("------------------------")
+print("Selectivo")
+print(selected(30, [Arbol(2, 2, 1000)]))
+print("------------------------")
+print("Probabilistico")
+print(probabilista(10, 10000, 10000, [Arbol(2, 2, 1000), Arbol(4, 2, 500000), Arbol(5, 3, 250000), Arbol(8, 3, 250000)]))
