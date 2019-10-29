@@ -68,23 +68,26 @@ def sumatoria(tiempo, arboles):
 """
 
 
+
 def cantHojas(tiempo, arboles, cantHormigas, rango):
-    hojasTotales = 0
+    rango.hojas = 0
     for arbol in arboles:
         seg = 0
-        hojasRecogidas = 0
         hojas = arbol.cantHojas
-        while seg < tiempo / len(arboles):
+        while seg < tiempo:
             cantHojas = math.floor((tiempo - seg) / (2 * (arbol.ubicacion + arbol.duracionSubir)))
-            if hojas > 0 and cantHojas <= hojas and cantHormigas >= 1:
-                hojas -= cantHojas
-                hojasRecogidas += cantHojas
+            if hojas > 0 and cantHormigas >= 1:
+                if cantHojas <= hojas:
+                    hojas -= cantHojas
+                    rango.hojas += cantHojas
+                else:
+                    rango.hojas += hojas
+                    hojas = 0
                 cantHormigas -= 1
                 seg += 1
+                tiempo -= 1
             else:
                 break
-        # print("Hojas Recogidas", hojasRecogidas)
-        rango.hojas += hojasRecogidas
     rango.sobrantes = cantHormigas
 
 
@@ -97,25 +100,22 @@ def sacarRangos(cantRangos, maxHormigas):
 
 
 def probabilista(pCantPruebas, maxHormigas, tiempo, arboles):
-    ranges = sacarRangos(15, maxHormigas)
+    ranges = sacarRangos(25, maxHormigas)
     mejorRango = ranges[random.randint(0, len(ranges) - 1)]
     quantRandomAnts = random.randint(mejorRango.numMinimo, mejorRango.numMaximo)
     cantHojas(tiempo, arboles, quantRandomAnts, mejorRango)
-    print("Numero Base: ", quantRandomAnts)
-    print("Cantidad Hojas Base: ", mejorRango.hojas)
-
     for prueba in range(0, pCantPruebas):
         ran = random.uniform(0.0, 1.0)
         for _range in ranges:
             quantRandomAnts = random.randint(_range.numMinimo, _range.numMaximo)
             if _range.probabilidad > ran:
                 cantHojas(tiempo, arboles, quantRandomAnts, _range)
-                if _range.hojas >= mejorRango.hojas and _range.sobrantes == 0:
+                if _range.hojas >= mejorRango.hojas and _range.sobrantes <= _range.numMaximo-_range.numMinimo:
                     mejorRango = _range
                     _range.probabilidad += 0.09
                 else:
                     _range.probabilidad -= 0.5
-    print(ranges)
+    print(mejorRango)
 
 
-probabilista(15, 50, 20, [Arbol(2, 2, 100), Arbol(4, 2, 20), Arbol(5, 3, 20), Arbol(8, 3, 20)])
+probabilista(10, 10000, 10000, [Arbol(2, 2, 1000), Arbol(4, 2, 500000), Arbol(5, 3, 250000), Arbol(8, 3, 250000)])
