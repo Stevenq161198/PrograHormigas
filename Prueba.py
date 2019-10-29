@@ -1,5 +1,6 @@
 import math
 import random
+from time import time
 
 from Arbol import *
 from Rango import *
@@ -60,7 +61,6 @@ def selected(tiempo, arboles):
     return cantHormigas, cantTotalHojas
 
 
-
 def cantHojas(tiempo, arboles, cantHormigas, rango):
     rango.hojas = 0
     for arbol in arboles:
@@ -91,22 +91,23 @@ def sacarRangos(cantRangos, maxHormigas):
     return rangos
 
 
-def probabilista(pCantPruebas, maxHormigas, tiempo, arboles):
+def probabilista(maxHormigas, tiempo, arboles):
     ranges = sacarRangos(25, maxHormigas)
     mejorRango = ranges[random.randint(0, len(ranges) - 1)]
     quantRandomAnts = random.randint(mejorRango.numMinimo, mejorRango.numMaximo)
     cantHojas(tiempo, arboles, quantRandomAnts, mejorRango)
-    for prueba in range(0, pCantPruebas):
+    for prueba in range(0, 10):
         ran = random.uniform(0.0, 1.0)
         for _range in ranges:
             quantRandomAnts = random.randint(_range.numMinimo, _range.numMaximo)
             if _range.probabilidad > ran:
                 cantHojas(tiempo, arboles, quantRandomAnts, _range)
-                if _range.hojas >= mejorRango.hojas and _range.sobrantes <= _range.numMaximo-_range.numMinimo:
+                if _range.hojas >= mejorRango.hojas and _range.sobrantes <= _range.numMaximo - _range.numMinimo:
                     mejorRango = _range
                     _range.probabilidad += 0.09
                 else:
                     _range.probabilidad -= 0.5
+<<<<<<< Updated upstream
     print(mejorRango)
 
 #if __name__ == "__main__":
@@ -118,3 +119,22 @@ print(selected(30, [Arbol(2, 2, 1000)]))
 print("------------------------")
 print("Probabilistico")
 print(probabilista(10, 10000, 10000, [Arbol(2, 2, 1000), Arbol(4, 2, 500000), Arbol(5, 3, 250000), Arbol(8, 3, 250000)]))
+=======
+    return mejorRango
+
+def main():
+    tiempo = 100000
+    while tiempo > 0:
+        hojasSolicitadas = 500
+        arboles = [Arbol(2, 2, 1500000), Arbol(4, 2, 5000000), Arbol(5, 3, 2500000), Arbol(8, 3, 250000)]
+        mejorRango = probabilista(15000, tiempo, arboles)
+        print(mejorRango)
+        print(tiempo)
+        if hojasSolicitadas - 50 < mejorRango.hojas < hojasSolicitadas+50:
+            return print(mejorRango)
+        tiempo -= 10
+start_time = time()
+main()
+elapsed_time = time() - start_time
+print("Elapsed time: %.10f seconds." % elapsed_time)
+>>>>>>> Stashed changes
