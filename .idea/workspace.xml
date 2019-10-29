@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5a52af1a-ac28-43cd-a1f6-34e357a98439" name="Default Changelist" comment="" />
+    <list default="true" id="5a52af1a-ac28-43cd-a1f6-34e357a98439" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -15,7 +17,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -69,7 +71,17 @@
       <option name="presentableId" value="Default" />
       <updated>1572281514492</updated>
       <workItem from="1572281515819" duration="2638000" />
+<<<<<<< Updated upstream
       <workItem from="1572299737976" duration="31138000" />
+=======
+<<<<<<< Updated upstream
+      <workItem from="1572299737976" duration="29509000" />
+=======
+      <workItem from="1572299737976" duration="23121000" />
+      <workItem from="1572364183008" duration="52000" />
+      <workItem from="1572364935766" duration="81000" />
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
     </task>
     <servers />
   </component>
