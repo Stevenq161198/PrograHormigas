@@ -7,7 +7,6 @@ from Arbol import *
 from Rango import *
 
 def voraz(tiempo, arboles):
-    v = multiprocessing.current_process()
     cantTotalHojas = 0
     cantHormigas = 0
     for arbol in arboles:
@@ -18,7 +17,9 @@ def voraz(tiempo, arboles):
             seg += len(arboles)
         cantTotalHojas += hojasRecogidas
         cantHormigas += math.ceil(hojasRecogidas / 2)
+    print("hormigas: " ,cantHormigas, "Hojas" ,cantTotalHojas)
     return cantHormigas, cantTotalHojas
+
 
 
 def cantHojas(tiempo, arboles, cantHormigas, rango):
@@ -72,7 +73,6 @@ def probabilista(maxHormigas, tiempo, arboles):
 
 
 def mainProba():
-    p = multiprocessing.current_process()
     tiempo = 100000
     while tiempo > 0:
         hojasSolicitadas = 5000000
@@ -87,8 +87,8 @@ def mainProba():
 if __name__ == "__main__":
 
     start_time = time()
-    voraz = multiprocessing.Process(name='voraz', target=voraz, args=(30, [Arbol(2, 2, 1000), Arbol(4, 2, 500000), Arbol(5, 3, 250000), Arbol(8, 3, 250000)]))
-    mainProba = multiprocessing.Process(name='mainProba', target=mainProba)
+    voraz = multiprocessing.Process(target=voraz, args=(30, [Arbol(2, 2, 1000), Arbol(4, 2, 500000), Arbol(5, 3, 250000), Arbol(8, 3, 250000)]))
+    mainProba = multiprocessing.Process(target=mainProba)
 
     voraz.start()
     mainProba.start()
