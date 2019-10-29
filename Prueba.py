@@ -116,19 +116,18 @@ print("------------------------")
 print("Selectivo")
 print(selected(30, [Arbol(2, 2, 1000)]))
 print("------------------------")
-print("Probabilistico")
-print(probabilista(10000, 10000, [Arbol(2, 2, 1000), Arbol(4, 2, 500000), Arbol(5, 3, 250000), Arbol(8, 3, 250000)]))
+
 def main():
     tiempo = 100000
     while tiempo > 0:
-        hojasSolicitadas = 500
+        hojasSolicitadas = 5000000
         arboles = [Arbol(2, 2, 1500000), Arbol(4, 2, 5000000), Arbol(5, 3, 2500000), Arbol(8, 3, 250000)]
-        mejorRango = probabilista(15000, tiempo, arboles)
+        mejorRango = probabilista(1500, tiempo, arboles)
         print(mejorRango)
         print(tiempo)
-        if hojasSolicitadas - 50 < mejorRango.hojas < hojasSolicitadas+50:
+        if hojasSolicitadas - hojasSolicitadas *0.05 < mejorRango.hojas < hojasSolicitadas:
             return print(mejorRango)
-        tiempo -= 10
+        tiempo -= round(tiempo * 0.020)
 start_time = time()
 main()
 elapsed_time = time() - start_time
