@@ -71,7 +71,7 @@ def probabilista(maxHormigas, tiempo, arboles):
     return mejorRango
 
 
-def main():
+def mainProba():
     p = multiprocessing.current_process()
     tiempo = 100000
     while tiempo > 0:
@@ -83,14 +83,18 @@ def main():
         if hojasSolicitadas - hojasSolicitadas *0.05 < mejorRango.hojas < hojasSolicitadas:
             return print(mejorRango)
         tiempo -= round(tiempo * 0.020)
-        
 
-start_time = time()
-main()
-voraz = multiprocessing.Process(name='voraz', target=voraz, args=(30, [Arbol(2, 2, 1000), Arbol(4, 2, 500000), Arbol(5, 3, 250000), Arbol(8, 3, 250000)]))
-main = multiprocessing.Process(name='main', target=main)
-elapsed_time = time() - start_time
+if __name__ == "__main__":
 
-print("Elapsed time: %.10f seconds." % elapsed_time)
+    start_time = time()
+    voraz = multiprocessing.Process(name='voraz', target=voraz, args=(30, [Arbol(2, 2, 1000), Arbol(4, 2, 500000), Arbol(5, 3, 250000), Arbol(8, 3, 250000)]))
+    mainProba = multiprocessing.Process(name='mainProba', target=mainProba)
 
+    voraz.start()
+    mainProba.start()
 
+    voraz.join()
+    mainProba.join()
+
+    elapsed_time = time() - start_time
+    print("Elapsed time: %.10f seconds." % elapsed_time)
