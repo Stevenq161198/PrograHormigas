@@ -107,10 +107,9 @@ def probabilista(maxHormigas, tiempo, arboles):
                     _range.probabilidad += 0.09
                 else:
                     _range.probabilidad -= 0.5
-<<<<<<< Updated upstream
-    print(mejorRango)
+    return mejorRango
 
-#if __name__ == "__main__":
+
 print("Voraz")
 print(voraz(30, [Arbol(2, 2, 1000), Arbol(4, 2, 500000), Arbol(5, 3, 250000), Arbol(8, 3, 250000)]))
 print("------------------------")
@@ -118,10 +117,7 @@ print("Selectivo")
 print(selected(30, [Arbol(2, 2, 1000)]))
 print("------------------------")
 print("Probabilistico")
-print(probabilista(10, 10000, 10000, [Arbol(2, 2, 1000), Arbol(4, 2, 500000), Arbol(5, 3, 250000), Arbol(8, 3, 250000)]))
-=======
-    return mejorRango
-
+print(probabilista(10000, 10000, [Arbol(2, 2, 1000), Arbol(4, 2, 500000), Arbol(5, 3, 250000), Arbol(8, 3, 250000)]))
 def main():
     tiempo = 100000
     while tiempo > 0:
@@ -137,4 +133,4 @@ start_time = time()
 main()
 elapsed_time = time() - start_time
 print("Elapsed time: %.10f seconds." % elapsed_time)
->>>>>>> Stashed changes
+
