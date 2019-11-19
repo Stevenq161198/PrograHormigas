@@ -1,6 +1,6 @@
-from tree import Tree
-from ant_admin import AntAdmin
-from html_writer import draw_to_html
+from misc.tree import Tree
+from misc.ant_admin import *
+from misc.html_writer import draw_to_html
 
 
 trees = [

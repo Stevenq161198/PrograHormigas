@@ -1,5 +1,5 @@
-from list_node import ListNode
-from tree import Tree
+from misc.list_node import ListNode
+from misc.tree import Tree
 
 class AntAdmin:
 
@@ -225,12 +225,14 @@ class AntAdmin:
         print("Times:", times)
         print("After loop closed: ", len(ant_admin.queue))
         print("Loop: ")
-        
+
+        loop = []
         for node in ant_admin.queue:
-            print(node.target if node.target != None else "_", end=" ")
+
+            loop.append(node.target if node.target != None else "_")
         
         print("\n")
         results = ant_admin.analysis_count(time)
-        print(results)
+        print("Results" ,results)
         
-        return {"ant_count": results[0], "leaf_count": results[1], "loop": ant_admin.queue}
+        return {"ant_count": results[0], "leaf_count": results[1], "loop": loop}
