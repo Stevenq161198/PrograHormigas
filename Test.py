@@ -28,25 +28,6 @@ def oneByOne(timeLapse, trees, start_time):
 
 #################################################################################
 
-def getCombinations(lenTrees):
-    combinations = []
-    for cant in range(1, lenTrees):
-        combinations.append(Combination(cant, generateAnts(cant, lenTrees), 0, 0))
-    return combinations
-
-
-def generateAnts(quant, lenTrees):
-    return [index for _ in range(0, quant) for index in range(0, lenTrees)]
-
-
-def evaluateCombination(combination, maxTime):
-    resultTuple = AntAdmin.evaluate(trees, combination.ants, 1, maxTime)
-    combination.quantAnts = resultTuple["ant_count"]
-    combination.quantLeaf = resultTuple["leaf_count"]
-    combination.order = resultTuple["loop"]
-    return combination
-
-
 def getBacks(trees):
     allBacks = 0
     for tree in trees:
@@ -69,7 +50,7 @@ def getProbability(trees, allBacks):
 def getTreeByProbability(random, probabilities):
     treePosition = 0
     for probability in probabilities:
-        if random <= 0:
+        if random <= 0 or treePosition >= len(probabilities) - 1:
             break
         treePosition += 1
         random -= probability
@@ -82,6 +63,7 @@ def probabilistic(quantAnts, probabilities, trees, time):
         r = random.uniform(0.0, 1.0)
         position = getTreeByProbability(r, probabilities)
         ants.append(position)
+    print(ants)
     result = AntAdmin.evaluate(trees, ants, antSpeed, time)
     return result
 
@@ -96,6 +78,7 @@ def mainProbabilistic(trees, start_time, time):
         result = probabilistic(quantAnts, probabilities, trees, time)
         if result["leaf_count"] > bestResult["leaf_count"]:
             bestResult = result
+    print(bestResult)
     return bestResult
 
 
