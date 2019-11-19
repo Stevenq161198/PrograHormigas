@@ -35,7 +35,7 @@ def getCombinations(lenTrees):
 
 
 def generateAnts(quant, lenTrees):
-    return [index for _ in range(0, quant) for index in range(0, lenTrees)]  # Manda 3 hormigas a cada árbol
+    return [index for _ in range(0, quant) for index in range(0, lenTrees)]
 
 
 def evaluateCombination(combination, maxTime):
@@ -54,7 +54,7 @@ def probabilistic(trees, maxTime):
         ran = random.uniform(0.0, 1.0)
         for _combination in combinations:
             if _combination.probability > ran:
-                evaluateCombination(_combination,maxTime)
+                evaluateCombination(_combination, maxTime)
                 if _combination.quantLeaf >= bestCombination.quantLeaf and _combination.quantAnts <= bestCombination.quantAnts:
                     bestCombination = _combination
                     _combination.probability += 0.09
@@ -79,6 +79,6 @@ if __name__ == "__main__":
         Tree("K", 23, 18),
         Tree("L", 25, 2)
     ]
-    print("Best Combination:", probabilistic(trees,500))
+    print("Best Combination:", probabilistic(trees, 500))
     elapsed_time = time() - start_time
     print("Elapsed time: %.10f seconds." % elapsed_time)
