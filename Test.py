@@ -7,7 +7,25 @@ from Combination import *
 from misc.ant_admin import AntAdmin
 from misc.tree import Tree
 
+antSpeed = 1
 
+
+def oneByOne(timeLapse, trees, start_time):
+    global antSpeed
+    totalLeaves = 0
+    while time() - start_time < timeLapse:
+        cantAnts = 0
+        totalLeaves = 0
+        for tree in trees:
+            timeElapsed = 2 * ((tree.x / antSpeed) + (tree.height / antSpeed))
+            cantAnts = math.floor(math.floor(timeElapsed) * (1 / antSpeed))
+            leavesXTree = math.floor(tree.leaves_count / cantAnts) * cantAnts
+            totalLeaves += leavesXTree
+        print("Cantidad Hormigas: ", cantAnts)
+        print("Hojas Totales: ", totalLeaves)
+        return cantAnts
+
+#################################################################################
 
 def getCombinations(lenTrees):
     combinations = []
