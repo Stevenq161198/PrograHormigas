@@ -1,4 +1,4 @@
-from tree_reference import TreeReference
+from misc.tree_reference import TreeReference
 class Tree():
     
     def __init__(self, name, x, levels, base_size = 1, percentage = 1):
