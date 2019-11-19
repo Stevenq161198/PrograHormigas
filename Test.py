@@ -56,8 +56,13 @@ def getBacks(trees):
 
 def getProbability(trees, allBacks):
     probabilities = []
+    totalProb = 0
     for tree in trees:
-        probabilities.append((allBacks - tree.total_distance) / allBacks)
+        prob = 1 - tree.total_distance / allBacks
+        probabilities.append(prob)
+        totalProb += prob
+    for index in range(0, len(probabilities)):
+        probabilities[index] = probabilities[index] / totalProb
     return probabilities
 
 
