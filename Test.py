@@ -4,6 +4,7 @@ from time import time
 import multiprocessing
 
 from Combination import *
+from genetic import genetic
 from misc.ant_admin import AntAdmin
 from misc.tree import Tree
 
@@ -23,7 +24,7 @@ def oneByOne(timeLapse, trees, start_time):
             totalLeaves += leavesXTree
         print("Cantidad Hormigas: ", cantAnts)
         print("Hojas Totales: ", totalLeaves)
-        return cantAnts
+        return cantAnts,totalLeaves
 
 
 #################################################################################
@@ -63,17 +64,15 @@ def probabilistic(quantAnts, probabilities, trees, time):
         r = random.uniform(0.0, 1.0)
         position = getTreeByProbability(r, probabilities)
         ants.append(position)
-    print(ants)
     result = AntAdmin.evaluate(trees, ants, antSpeed, time)
     return result
 
 
-def mainProbabilistic(trees, start_time, time):
-    quantAnts = oneByOne(500, trees, start_time)
+def mainProbabilistic(trees,quantAnts, start_time, time):
     allBacks = getBacks(trees)
     probabilities = getProbability(trees, allBacks)
     bestResult = probabilistic(quantAnts, probabilities, trees, time)
-    print("Probabilities",probabilities)
+
     for test in range(0, 15):
         result = probabilistic(quantAnts, probabilities, trees, time)
         if result["leaf_count"] > bestResult["leaf_count"]:
@@ -95,9 +94,24 @@ trees = [
     Tree("J", 20, 1),
     Tree("K", 23, 18),
     Tree("L", 25, 2)
+
 ]
+
+
+def generateGeneSet(trees):
+    positions = []
+    position = 1
+    while position < len(trees):
+        positions.append(position)
+        position += 1
+    return positions
+
+
 if __name__ == "__main__":
+    geneSet = generateGeneSet(trees)
     start_time = time()
-    mainProbabilistic(trees, start_time, 500)
+    quantAnts = oneByOne(500, trees, start_time)
+    mainProbabilistic(trees,quantAnts[0], start_time, 500000)
+    print("Mejor",genetic(quantAnts[0], quantAnts[1], geneSet, antSpeed, 500000, trees))
     elapsed_time = time() - start_time
     print("Elapsed time: %.10f seconds." % elapsed_time)

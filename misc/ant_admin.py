@@ -144,7 +144,7 @@ class AntAdmin:
                         break
                 if not finished:
                     break
-        print("While closing loop:", len(self.queue))
+        #print("While closing loop:", len(self.queue))
 
         max_back_time = 0
         max_back_time_index = 0
@@ -156,12 +156,12 @@ class AntAdmin:
                     max_back_time = back_time
                     max_back_time_index = index
 
-        print("Max back time:", max_back_time)
-        print("Max back time index:", max_back_time_index)
-        print("Tree wait time:",
-              self.trees[self.queue[max_back_time_index].target].total_distance)
+        #print("Max back time:", max_back_time)
+        #print("Max back time index:", max_back_time_index)
+        #print("Tree wait time:",
+        #      self.trees[self.queue[max_back_time_index].target].total_distance)
         wait_time = max_back_time - (len(self.queue) - 1 - max_back_time_index)
-        print("Wait time:", wait_time)
+        #print("Wait time:", wait_time)
         if wait_time <= 0:
             return 0
 
@@ -183,12 +183,12 @@ class AntAdmin:
         '''
         for tree in self.trees:
             tree.restart_temp_leaves_count()
-        
+
         complete_iterations = int(time / len(self.queue))
-        print("Complete iterations:", complete_iterations)
+        #print("Complete iterations:", complete_iterations)
 
         last_index = time % len(self.queue)
-        print("Last index:", last_index)
+        #print("Last index:", last_index)
 
         ant_count = 0
         leaf_count = 0
@@ -219,20 +219,20 @@ class AntAdmin:
         
         ant_admin.send_ants(ants)
         
-        print("Before loop closed: ", len(ant_admin.queue))
+        #print("Before loop closed: ", len(ant_admin.queue))
         times = ant_admin.close_loop()
         
-        print("Times:", times)
-        print("After loop closed: ", len(ant_admin.queue))
-        print("Loop: ")
+        #print("Times:", times)
+        #print("After loop closed: ", len(ant_admin.queue))
+        #print("Loop: ")
 
         loop = []
         for node in ant_admin.queue:
 
             loop.append(node.target if node.target != None else "_")
         
-        print("\n")
+        #print("\n")
         results = ant_admin.analysis_count(time)
-        print("Results" ,results)
+        #print("Results" ,results)
         
         return {"ant_count": results[0], "leaf_count": results[1], "loop": loop}
