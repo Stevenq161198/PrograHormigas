@@ -50,4 +50,5 @@ def genetic(pTargetLength, pOptimalFit, pGeneSet, pAntsSpeed, pTime, pTrees, pSt
         if child.Aptitud >= pOptimalFit:
             return child
         bestDad = child
+    print('Mejor gen',bestDad)
     return bestDad
