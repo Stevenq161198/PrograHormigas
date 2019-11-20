@@ -1,12 +1,10 @@
 import json
 import math
-import string
+import multiprocessing
 
 from Genetic import *
 from Probabilistic import mainProbabilistic
 from misc.tree import Tree
-
-import json
 
 antSpeed = 1
 
@@ -72,9 +70,7 @@ if __name__ == "__main__":
     print("Probabilistic: ",mainProbabilistic(trees, quantAntsOO[0], start_timeP, 100000000000, (tiempo * 0.2)))
     elapsed_time = time() - start_timeP
     print("Elapsed time: %.10f seconds." % elapsed_time)
-    """
-    mainProbabilistic(trees, quantAntsOO[0], start_time, 900000, (tiempo * 0.2))
-    print("Mejor",genetic(quantAntsOO[0], quantAntsOO[1], geneSet, antSpeed, 900000, trees, start_time, (tiempo * 0.2)))
+    
     """
     mainProbabilistic = multiprocessing.Process(target=mainProbabilistic, args=(trees, quantAntsOO[0], start_time, 900000, (tiempo * 0.2)))
     genetic = multiprocessing.Process(target=genetic, args=(quantAntsOO[0], quantAntsOO[1], geneSet, antSpeed, 900000, trees, start_time, (tiempo * 0.2)))
