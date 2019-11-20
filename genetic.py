@@ -29,6 +29,15 @@ def _mutar(pFather, pGeneSet, pTime, pTrees):
     return Chromosome(genes, result["leaf_count"], result["ant_count"], result["loop"])
 
 
+def generateGeneSet(pTrees):
+    positions = []
+    position = 1
+    while position < len(pTrees):
+        positions.append(position)
+        position += 1
+    return positions
+
+
 def genetic(pTargetLength, pOptimalFit, pGeneSet, pAntsSpeed, pTime, pTrees, pStartTime, pTimeLapse):
     random.seed()
     bestDad = _generar_padre(pTargetLength, pGeneSet, pAntsSpeed, pTime, pTrees)
@@ -36,8 +45,6 @@ def genetic(pTargetLength, pOptimalFit, pGeneSet, pAntsSpeed, pTime, pTrees, pSt
         return bestDad
     while time() - pStartTime < pTimeLapse:
         child = _mutar(bestDad, pGeneSet, pTime, pTrees)
-        # print("Mejor Padre",mejorPadre)
-        # print("Chico",child)
         if bestDad.Aptitud >= child.Aptitud:
             continue
         if child.Aptitud >= pOptimalFit:
