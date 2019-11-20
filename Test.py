@@ -8,7 +8,6 @@ from misc.ant_admin import AntAdmin
 from misc.tree import Tree
 
 import json
-import string
 
 antSpeed = 1
 
@@ -80,8 +79,11 @@ def mainProbabilistic(pTrees, pQuantAnts, pStartTime, pTime, pTime_lapse):
     return bestResult
 
 
+def getGrowPercentage(pTreeLength, pTreeLevels, pLeafLength):
+    return (pLeafLength/pTreeLength)**1/pTreeLevels
+
+
 trees = []
-listaLetras = list(string.ascii_lowercase)
 with open('test3.json') as json_file:
     data = json.load(json_file)
     indexLetras = 0
@@ -91,8 +93,9 @@ with open('test3.json') as json_file:
         # print('Levels: ' + str(p['levels']))
         # print('LeafLength: ' + str(p['leafLength']))
         # print('')
-        # tree = Tree("A",p['posX'],p['levels'],p['length'])
-        tree = Tree("A", p['posX'], p['levels'])
+        growPercentage = getGrowPercentage(p['length'],p['levels'],p['leafLength'])
+        tree = Tree("A", p['posX'], p['levels'], p['length'],growPercentage)
+        # tree = Tree("A", p['posX'], p['levels'])
         trees.append(tree)
         indexLetras += 1
 
@@ -130,8 +133,10 @@ if __name__ == "__main__":
     mainProbabilistic(trees, quantAntsOO[0], start_time, 900000, (tiempo * 0.2))
     print("Mejor",genetic(quantAntsOO[0], quantAntsOO[1], geneSet, antSpeed, 900000, trees, start_time, (tiempo * 0.2)))
     """
-    mainProbabilistic = multiprocessing.Process(target=mainProbabilistic, args=(trees, quantAntsOO[0], start_time, 900000, (tiempo * 0.2)))
-    genetic = multiprocessing.Process(target=genetic, args=(quantAntsOO[0], quantAntsOO[1], geneSet, antSpeed, 900000, trees, start_time, (tiempo * 0.2)))
+    mainProbabilistic = multiprocessing.Process(target=mainProbabilistic,
+                                                args=(trees, quantAntsOO[0], start_time, 900000, (tiempo * 0.2)))
+    genetic = multiprocessing.Process(target=genetic, args=(
+    quantAntsOO[0], quantAntsOO[1], geneSet, antSpeed, 900000, trees, start_time, (tiempo * 0.2)))
     mainProbabilistic.start()
     genetic.start()
 
@@ -139,4 +144,3 @@ if __name__ == "__main__":
     genetic.join()
     elapsed_time = time() - start_time
     print("Elapsed time: %.10f seconds." % elapsed_time)
-
