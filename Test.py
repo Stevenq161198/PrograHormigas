@@ -7,6 +7,10 @@ from Combination import *
 from misc.ant_admin import AntAdmin
 from misc.tree import Tree
 
+import json
+import string
+
+
 antSpeed = 1
 
 
@@ -81,8 +85,25 @@ def mainProbabilistic(trees, start_time, time):
     print(bestResult)
     return bestResult
 
+trees = []
+listaLetras = list(string.ascii_lowercase)
+with open('test3.json') as json_file:
+    data = json.load(json_file)
+    indexLetras = 0
+    for p in data['test']:
+        #print('PosX: ' + str(p['posX']))
+        #print('Length: ' + str(p['length']))
+        #print('Levels: ' + str(p['levels']))
+        #print('LeafLength: ' + str(p['leafLength']))
+        #print('')
+        tree = Tree("A",p['posX'],p['levels'],p['length'])
+        #tree = Tree("A", p['posX'], p['levels'])
+        trees.append(tree)
+        indexLetras += 1
 
-trees = [
+
+
+"""trees = [
     Tree("A", 3, 4),  # El nombre es opcional, es sólo para que se identifique en el HTML
     Tree("B", 6, 8, 1, 1),  #  Ahora se puede enviar también el tamaño base y el porcentaje de crecimiento
     Tree("C", 6, 6),
@@ -95,9 +116,11 @@ trees = [
     Tree("J", 20, 1),
     Tree("K", 23, 18),
     Tree("L", 25, 2)
-]
+]"""
+
+
 if __name__ == "__main__":
     start_time = time()
-    mainProbabilistic(trees, start_time, 500)
+    mainProbabilistic(trees, start_time, 100000)
     elapsed_time = time() - start_time
     print("Elapsed time: %.10f seconds." % elapsed_time)
