@@ -28,6 +28,14 @@ class Tree():
         self.other_trees_reference = [] # Las referencias tienen la relación entre árboles y restricciones
         self.leaves_count = pow(2, levels - 1)
         self.temp_leaves_count = self.leaves_count
+
+    def __repr__(self):
+        return '{}: {} {} {} {} {}'.format(self.__class__.__name__,
+                                           self.name,
+                                           self.x,
+                                           self.levels,
+                                           self.base_size,
+                                           self.precentage)
     
     def set_speed(self, speed):
         '''
